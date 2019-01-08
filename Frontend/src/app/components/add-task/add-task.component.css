@@ -1,0 +1,19 @@
+.row{
+    margin: 1% 1% 1% 1%;
+}
+
+label{
+    font-weight: bold;
+}
+
+button#add{
+    margin-right: 1%;
+}
+
+button#search, button#searchParent, button#searchUser {
+    float: right;
+}
+
+#priority{
+    width: 100%;
+}

@@ -1,0 +1,102 @@
+<div class="outer-div">
+  <form id="add-task-form" [formGroup]="addTaskForm" (ngSubmit)="onAdd()" novalidate>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Task:</label>
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" formControlName="task" id="task">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-6">
+        <input type="checkbox" (change)="onSelect($event)" class="form-check-input" id="setTask" formControlName="ifParent">
+        <label class="form-check-label" for="setTask">Parent Task</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Priority:</label>
+      </div>
+      <div class="col-md-6">
+        <input type="range" id="priority" min="0" max="30" step="1" formControlName="priority">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Parent Task:</label>
+      </div>
+      <div class="col-md-5">
+        <input type="text" class="form-control" formControlName="parentTask" id="parentTask">
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-primary" id="searchParent" data-toggle="modal" data-target="#ParentModal"
+          [disabled]="addTaskForm.get('ifParent').value">SEARCH</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Start Date:</label>
+      </div>
+      <div class="col-md-2">
+        <input type="date" class="form-control" formControlName="startDate" id="startDate">
+      </div>
+      <div class="col-md-2">
+        <label>End Date:</label>
+      </div>
+      <div class="col-md-2">
+        <input type="date" class="form-control" formControlName="endDate" id="endDate">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-5">
+      </div>
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-primary" id="add" [disabled]="!(this.addTaskForm.valid)">ADD</button>
+        <button type="button" class="btn btn-primary" id="reset" (click)="resetForm()">RESET</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<!-- Parent Modal -->
+<div class="modal fade" id="ParentModal" tabindex="-1" role="dialog" aria-labelledby="ParentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="ParentModalLabel">Select the parent task :</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" placeholder="Search..." [(ngModel)]="search_parent">
+        <br>
+        <br>
+        <div class="input-group mb-3" *ngFor="let parent of parents_list | filterParent : search_parent">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" value="{{parent._id}}-{{parent.parentTask}}" [(ngModel)]="selected_parent">
+            </div>
+          </div>
+          &nbsp; {{parent.parentTask}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveParent()" [disabled]="!selected_parent">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>

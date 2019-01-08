@@ -1,0 +1,28 @@
+.top-div{
+    padding-left: 1%;
+    padding-right: 3%; 
+    height: 60px;
+    line-height: 60px;
+    color: #c8c8c8;
+    font-size: 22px;
+    background-color : #333333;
+
+}
+
+.bottom-div{
+    background-color: rgb(11, 157, 194);
+    font-size: 18px;
+    padding-left: 1%;
+    height: 45px;
+    line-height: 45px;
+}
+
+a{
+    text-decoration: none;
+    margin-right: 1%;
+    color: #c8c8c8;
+}
+
+.active{
+    color: white;
+}

@@ -1,0 +1,20 @@
+.row{
+    margin: 1% 1% 1% 1%;
+}
+
+label{
+    font-weight: bold;
+}
+
+.ruler{
+    border-top: 2px dotted blue;
+    margin: 0px 1% 0px 1%;
+}
+
+button#sortBystartDate, button#sortByendDate, button#sortByPriority, button#sortByCompleted{
+    margin-right: 3%;
+}
+
+button#delete{
+    margin-left: 1%;
+}

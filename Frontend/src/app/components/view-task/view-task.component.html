@@ -1,0 +1,63 @@
+<div class="outer-div">
+  <div class="row">
+    <div class="col-md-1">
+      <label>Project:</label>
+    </div>
+    <div class="col-md-3">
+      <input type="text" [(ngModel)]="project" class="form-control" [disabled]="true">
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#ProjectModal">Search</button>
+    </div>
+    <div class="col-md-1"><label>Sort Task By:</label>
+    </div>
+    <div class="col-md-6">
+      <button type="button" class="btn btn-primary" id="sortBystartDate" (click)="sort('startDate')">Start Date</button>
+      <button type="button" class="btn btn-primary" id="sortByendDate" (click)="sort('endDate')">End Date</button>
+      <button type="button" class="btn btn-primary" id="sortByPriority" (click)="sort('Priority')">Priority</button>
+      <button type="button" class="btn btn-primary" id="sortByCompleted" (click)="sort('Completed')">Completed</button>
+      <button type="button" class="btn btn-primary" id="clearFilter" (click)="clearFilter()">Clear Filter</button>
+    </div>
+  </div>
+
+  <div>
+    <hr style="border: solid 1px blue; margin: 0 1% 0 1%;">
+  </div>
+
+  <div *ngFor="let task of tasks">
+    <div class="row">
+      <div class="col-md-2">
+        <h6>Task</h6><br>
+        {{task.task}}
+      </div>
+      <div class="col-md-2">
+        <h6>Parent</h6><br>
+        {{task.parentTaskId?.parentTask}}
+      </div>
+      <div class="col-md-1">
+        <h6>Priority</h6><br>
+        {{task.priority}}
+      </div>
+      <div class="col-md-2">
+        <h6>Start</h6><br>
+        {{task.startDate | date: 'dd/MM/yyyy'}}
+      </div>
+      <div class="col-md-2">
+        <h6>End</h6><br>
+        {{task.endDate | date: 'dd/MM/yyyy'}}
+      </div>
+      <div class="col-md-1">
+        <h6>Status</h6><br>
+        {{task.status | titlecase}}
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-secondary" id="edit" (click)="editTask(task._id)">Edit</button>
+        <button class="btn btn-secondary" id="delete" (click)="endTask(task._id)">End</button>
+      </div>
+    </div>
+    <div>
+      <hr class="ruler">
+    </div>
+  </div>
+
+</div>
