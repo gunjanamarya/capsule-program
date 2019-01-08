@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../services/task.service';
 import { TitleCasePipe } from '@angular/common';
 import { ParentTask } from '../../models/Task.model';
@@ -27,15 +28,37 @@ export class AddTaskComponent implements OnInit {
   search_user: string;
   selected_user: string;
   error: string;
+  editable: boolean = false;
 
   constructor(private fb: FormBuilder,
     private taskService: TaskService,
-    private titleCasePipe: TitleCasePipe) { }
+    private titleCasePipe: TitleCasePipe,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.setDefaultDate()
     this.createForm();
+    this.task_id = this.route.snapshot.queryParamMap.get('taskId');
+    if (this.task_id) {
+      this.editable = true;
+      this.taskService.searchTask(this.task_id).subscribe(data => {
+        console.log(data)
+        this.addTaskForm.setValue({
+          task: data[0].task,
+          priority: data[0].priority,
+          ifParent: false,
+          parentTask: data[0].parentTaskId ? data[0].parentTaskId['parentTask'] : null,
+          startDate: this.dateFormatter(new Date(data[0].startDate), 'yyyy-MM-dd'),
+          endDate: this.dateFormatter(new Date(data[0].endDate), 'yyyy-MM-dd'),
+        })
+        this.addTaskForm.get('ifParent').disable();
+      })
+    }
+    this.getParentTasks();
+  }
 
+  getParentTasks() {
     this.taskService.getParents().subscribe(data => {
       // console.log(data);
       this.parents_list = data;
@@ -71,6 +94,7 @@ export class AddTaskComponent implements OnInit {
     this.error = null;
     this.search_parent = null;
     this.selected_parent = null;
+    this.editable = false;
     this.addTaskForm.reset({
       priority: 0,
       ifParent: false,
@@ -80,6 +104,10 @@ export class AddTaskComponent implements OnInit {
     this.addTaskForm.get('priority').enable();
     this.addTaskForm.get('startDate').enable();
     this.addTaskForm.get('endDate').enable();
+    this.addTaskForm.get('ifParent').enable();
+    if (this.editable) {
+      this.router.navigate(['/add-task'])
+    }
   }
 
   DateValidator() {
@@ -106,12 +134,13 @@ export class AddTaskComponent implements OnInit {
 
   onAdd() {
     if (this.addTaskForm.get('ifParent').value) {
-      console.log('Parent task')
+      // console.log('Parent task')
       var parentTask = new ParentTask();
       parentTask.parentTask = this.titleCasePipe.transform(this.addTaskForm.get('task').value);
       this.taskService.addParent(parentTask).subscribe(data => {
         this.resetForm();
         this.error = null;
+        this.getParentTasks();
       }, error => {
         this.error = 'Atleast one of the field has error !!';
         console.log(error)
@@ -144,6 +173,23 @@ export class AddTaskComponent implements OnInit {
       this.addTaskForm.get('startDate').enable();
       this.addTaskForm.get('endDate').enable();
     }
+  }
+
+  updateTask() {
+    let subTask = new Task();
+    subTask.parentTaskId = this.selected_parent ? this.selected_parent.split('-')[0].trim() : null;
+    subTask.priority = this.addTaskForm.get('priority').value;
+    subTask.startDate = this.addTaskForm.get('startDate').value;
+    subTask.endDate = this.addTaskForm.get('endDate').value;
+    subTask.task = this.titleCasePipe.transform(this.addTaskForm.get('task').value);
+
+    this.taskService.editTask(this.task_id, subTask).subscribe(data => {
+      this.resetForm();
+      this.error = null;
+    }, error => {
+      this.error = 'Atleast one of the field has error !!';
+      console.log(error)
+    })
   }
 
 }

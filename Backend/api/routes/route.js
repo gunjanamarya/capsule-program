@@ -12,12 +12,15 @@ module.exports = function (app) {
     app.route('/get-parent-tasks')
         .get(services.get_parents);
 
-    // app.route('/get-tasks/:id')
-    //     .get(services.search_tasks);
+    app.route('/search-task/:id')
+        .get(services.search_task);
+
+    app.route('/get-tasks')
+        .get(services.get_tasks);
 
     app.route('/complete-task/:id')
         .put(services.complete_task);
 
-    app.route('/update-task/:id')
+    app.route('/edit-task/:id')
         .put(services.update_task);
 }

@@ -10,6 +10,7 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
 import { ViewTaskComponent } from './components/view-task/view-task.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { FilterParentPipe } from './pipes/filter-parent.pipe';
+import { FilterTaskPipe } from './pipes/filter-task.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FilterParentPipe } from './pipes/filter-parent.pipe';
     AddTaskComponent,
     ViewTaskComponent,
     NavMenuComponent,
-    FilterParentPipe
+    FilterParentPipe,
+    FilterTaskPipe
   ],
   imports: [
     BrowserModule,

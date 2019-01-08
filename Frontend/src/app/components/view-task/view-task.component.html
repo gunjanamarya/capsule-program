@@ -1,23 +1,46 @@
 <div class="outer-div">
+
   <div class="row">
     <div class="col-md-1">
-      <label>Project:</label>
+      <label>Task:</label>
     </div>
-    <div class="col-md-3">
-      <input type="text" [(ngModel)]="project" class="form-control" [disabled]="true">
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="task">
     </div>
     <div class="col-md-1">
-      <button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#ProjectModal">Search</button>
+      <label>Parent Task:</label>
     </div>
-    <div class="col-md-1"><label>Sort Task By:</label>
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="parentTask">
     </div>
-    <div class="col-md-6">
-      <button type="button" class="btn btn-primary" id="sortBystartDate" (click)="sort('startDate')">Start Date</button>
-      <button type="button" class="btn btn-primary" id="sortByendDate" (click)="sort('endDate')">End Date</button>
-      <button type="button" class="btn btn-primary" id="sortByPriority" (click)="sort('Priority')">Priority</button>
-      <button type="button" class="btn btn-primary" id="sortByCompleted" (click)="sort('Completed')">Completed</button>
-      <button type="button" class="btn btn-primary" id="clearFilter" (click)="clearFilter()">Clear Filter</button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1">
+      <label>Priority From:</label>
     </div>
+    <div class="col-md-1">
+      <input type="number" class="form-control" id="pFrom">
+    </div>
+    <div class="col-md-1">
+      <label>Priority To:</label>
+    </div>
+    <div class="col-md-1">
+      <input type="number" class="form-control" id="pTo">
+    </div>
+    <div class="col-md-1">
+      <label>Start Date:</label>
+    </div>
+    <div class="col-md-2">
+      <input type="date" class="form-control" id="startDate">
+    </div>
+    <div class="col-md-1">
+      <label>End Date:</label>
+    </div>
+    <div class="col-md-2">
+      <input type="date" class="form-control" id="endDate">
+    </div>
+
   </div>
 
   <div>
@@ -51,8 +74,8 @@
         {{task.status | titlecase}}
       </div>
       <div class="col-md-2">
-        <button class="btn btn-secondary" id="edit" (click)="editTask(task._id)">Edit</button>
-        <button class="btn btn-secondary" id="delete" (click)="endTask(task._id)">End</button>
+        <button class="btn btn-secondary" id="edit" (click)="editTask(task._id)" [disabled]="task.status == 'completed'">Edit</button>
+        <button class="btn btn-secondary" id="delete" (click)="endTask(task._id)" [disabled]="task.status == 'completed'">End</button>
       </div>
     </div>
     <div>

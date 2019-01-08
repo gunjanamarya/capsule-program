@@ -4,8 +4,7 @@ var Task = mongoose.model('Task');
 
 exports.add_parent_task = function (req, res) {
     var parentObj = new Parent_Task({
-        parentTask: req.body.parentTask,
-        projectId: req.body.projectId
+        parentTask: req.body.parentTask
     });
     parentObj.save(function (err, parent) {
         if (err) res.status(500).send(err);
@@ -35,14 +34,20 @@ exports.add_sub_task = function (req, res) {
     });
 }
 
-exports.search_tasks = function (req, res) {
-    // var ObjectId = require('mongoose').Types.ObjectId;
-    // Task.find({ projectId: new ObjectId(req.params.id) }, function (err, tasks) {
-    //     if (err) res.status(500).send(err);
-    //     res.status(200).json(tasks);
-    // }).populate('parentTaskId', 'parentTask');
+exports.search_task = function (req, res) {
+    var ObjectId = require('mongoose').Types.ObjectId;
+    Task.find({ _id: new ObjectId(req.params.id) }, function (err, tasks) {
+        if (err) res.status(500).send(err);
+        res.status(200).json(tasks);
+    }).populate('parentTaskId', 'parentTask');
 }
 
+exports.get_tasks = function (req, res) {
+    Task.find(function (err, tasks) {
+        if (err) res.status(500).send(err);
+        res.status(200).json(tasks);
+    }).populate('parentTaskId', 'parentTask');
+}
 
 exports.complete_task = function (req, res) {
     var ObjectId = require('mongoose').Types.ObjectId;

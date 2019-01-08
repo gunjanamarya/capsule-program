@@ -3,6 +3,7 @@ import { Task } from '../../models/Task.model';
 import { TaskService } from '../../services/task.service';
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
+
 @Component({
   selector: 'app-view-task',
   templateUrl: './view-task.component.html',
@@ -20,45 +21,11 @@ export class ViewTaskComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // console.log('init called')
-    // let id = this.route.snapshot.queryParamMap.get('projectId');
-    // if (id) {
-    //   this.getTasks(id);
-    // }
+    this.getTasks();
   }
 
-  saveProject() {
-    let temp = this.selected_project.split('-')
-    this.project = temp[1];
-    this.getTasks(temp[0]);
-    $('#ProjectModal').modal('hide');
-    // this.router.navigate(['/view-task'], {
-    //   queryParams: {
-    //     projectId: temp[0]
-    //   }
-    // })
-  }
-
-
-  sort(basis) {
-    if (basis == 'startDate') {
-      this.tasks.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-    } else if (basis == 'endDate') {
-      this.tasks.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime())
-    } else if (basis == 'Priority') {
-      this.tasks.sort((a, b) => +a.priority - +b.priority)
-    } else if (basis == 'Completed') {
-      this.tasks = this.tasks.filter(task => task.status == 'completed')
-    }
-  }
-
-  clearFilter() {
-    let temp = this.selected_project.split('-')
-    this.getTasks(temp[0]);
-  }
-
-  getTasks(id) {
-    this.taskService.searchTask(id).subscribe(data => {
+  getTasks() {
+    this.taskService.getTasks().subscribe(data => {
       this.tasks = data;
     }, error => {
       console.log(error)
@@ -67,12 +34,16 @@ export class ViewTaskComponent implements OnInit {
 
   endTask(id) {
     this.taskService.setTaskAsComplete(id).subscribe(data => {
-      this.clearFilter();
+      this.getTasks();
     });
   }
 
   editTask(id) {
-
+    this.router.navigate(['/add-task'], {
+      queryParams: {
+        taskId: id
+      }
+    })
   }
 
 }
