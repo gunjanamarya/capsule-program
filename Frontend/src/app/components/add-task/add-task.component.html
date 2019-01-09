@@ -62,7 +62,8 @@
         <button type="submit" class="btn btn-primary" id="add" [disabled]="!(this.addTaskForm.valid)" *ngIf="!editable">ADD</button>
         <button type="button" class="btn btn-primary" id="add" [disabled]="!(this.addTaskForm.valid)" *ngIf="editable"
           (click)="updateTask()">UPDATE</button>
-        <button type="button" class="btn btn-primary" id="reset" (click)="resetForm()">RESET</button>
+        <button type="button" class="btn btn-primary" id="reset" (click)="resetForm()" *ngIf="!editable">RESET</button>
+        <button type="button" class="btn btn-primary" id="reset" (click)="cancelEdit()" *ngIf="editable">CANCEL</button>
       </div>
     </div>
 

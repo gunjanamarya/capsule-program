@@ -43,7 +43,7 @@ export class AddTaskComponent implements OnInit {
     if (this.task_id) {
       this.editable = true;
       this.taskService.searchTask(this.task_id).subscribe(data => {
-        console.log(data)
+        // console.log(data)
         this.addTaskForm.setValue({
           task: data[0].task,
           priority: data[0].priority,
@@ -105,9 +105,10 @@ export class AddTaskComponent implements OnInit {
     this.addTaskForm.get('startDate').enable();
     this.addTaskForm.get('endDate').enable();
     this.addTaskForm.get('ifParent').enable();
-    if (this.editable) {
-      this.router.navigate(['/add-task'])
-    }
+  }
+
+  cancelEdit() {
+    this.router.navigate(['./'])
   }
 
   DateValidator() {

@@ -5,13 +5,13 @@
       <label>Task:</label>
     </div>
     <div class="col-md-4">
-      <input type="text" class="form-control" id="task">
+      <input type="text" class="form-control" id="task" [(ngModel)]="searchTask">
     </div>
     <div class="col-md-1">
       <label>Parent Task:</label>
     </div>
     <div class="col-md-4">
-      <input type="text" class="form-control" id="parentTask">
+      <input type="text" class="form-control" id="parentTask" [(ngModel)]="searchParent">
     </div>
   </div>
 
@@ -20,25 +20,25 @@
       <label>Priority From:</label>
     </div>
     <div class="col-md-1">
-      <input type="number" class="form-control" id="pFrom">
+      <input type="number" class="form-control" id="pFrom" [(ngModel)]="from">
     </div>
     <div class="col-md-1">
       <label>Priority To:</label>
     </div>
     <div class="col-md-1">
-      <input type="number" class="form-control" id="pTo">
+      <input type="number" class="form-control" id="pTo" [(ngModel)]="to">
     </div>
     <div class="col-md-1">
       <label>Start Date:</label>
     </div>
     <div class="col-md-2">
-      <input type="date" class="form-control" id="startDate">
+      <input type="date" class="form-control" id="startDate" [(ngModel)]="sdate">
     </div>
     <div class="col-md-1">
       <label>End Date:</label>
     </div>
     <div class="col-md-2">
-      <input type="date" class="form-control" id="endDate">
+      <input type="date" class="form-control" id="endDate" [(ngModel)]="edate">
     </div>
 
   </div>
@@ -47,7 +47,7 @@
     <hr style="border: solid 1px blue; margin: 0 1% 0 1%;">
   </div>
 
-  <div *ngFor="let task of tasks">
+  <div *ngFor="let task of tasks | filterTask : searchTask : searchParent : from : to : sdate : edate">
     <div class="row">
       <div class="col-md-2">
         <h6>Task</h6><br>

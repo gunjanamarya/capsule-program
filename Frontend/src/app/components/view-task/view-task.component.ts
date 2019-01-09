@@ -16,6 +16,13 @@ export class ViewTaskComponent implements OnInit {
   search_project: string;
   selected_project: string;
   tasks: Task[];
+  searchTask: string;
+  searchParent: string;
+  from: number;
+  to: number;
+  sdate: Date;
+  edate: Date;
+
 
   constructor(private taskService: TaskService, private router: Router, private route: ActivatedRoute
   ) { }
