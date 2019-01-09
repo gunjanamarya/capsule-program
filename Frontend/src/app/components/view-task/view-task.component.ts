@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/Task.model';
 import { TaskService } from '../../services/task.service';
-import { Router, ActivatedRoute } from '@angular/router';
-declare var $: any;
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-task',
@@ -12,9 +11,6 @@ declare var $: any;
 })
 export class ViewTaskComponent implements OnInit {
 
-  project: string;
-  search_project: string;
-  selected_project: string;
   tasks: Task[];
   searchTask: string;
   searchParent: string;
@@ -24,7 +20,7 @@ export class ViewTaskComponent implements OnInit {
   edate: Date;
 
 
-  constructor(private taskService: TaskService, private router: Router, private route: ActivatedRoute
+  constructor(private taskService: TaskService, private router: Router
   ) { }
 
   ngOnInit() {

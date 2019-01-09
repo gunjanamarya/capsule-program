@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../services/task.service';
@@ -21,12 +21,8 @@ export class AddTaskComponent implements OnInit {
   today: Date;
   tomorrow: Date;
   parents_list: ParentTask[];
-  search_project: string;
-  selected_project: string;
   search_parent: string;
   selected_parent: string;
-  search_user: string;
-  selected_user: string;
   error: string;
   editable: boolean = false;
 
