@@ -49,6 +49,7 @@ export class AddTaskComponent implements OnInit {
           endDate: this.dateFormatter(new Date(data[0].endDate), 'yyyy-MM-dd'),
         })
         this.addTaskForm.get('ifParent').disable();
+        this.selected_parent = data[0].parentTaskId ? data[0].parentTaskId['_id'] + '-' + data[0].parentTaskId['parentTask'] : null
       })
     }
     this.getParentTasks();
