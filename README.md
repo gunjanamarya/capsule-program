@@ -1,9 +1,12 @@
 ### Task Manager
 
+
+The source code is located at Desktop in VM under the folder `capsule-program`
 #### To set up backend -
 
 Change to `Backend` directory and run the below commands -
 
+(Make sure that MongoDb server is up and running)
 1. `npm install`
 2. `node index.js`
 
