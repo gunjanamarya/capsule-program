@@ -2,6 +2,8 @@
 
 
 The source code is located at Desktop in VM under the folder `capsule-program`
+
+GitHub URL - https://github.com/gunjanamarya/capsule-program
 #### To set up backend -
 
 Change to `Backend` directory and run the below commands -
